@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <title>My Trackers</title>
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/carousel/">
+        <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <!-- Custom styles for this template -->
+        <link href="/static/tracker.css" rel="stylesheet">
+        <link href="/static/navbar.css" rel="stylesheet">
+    </head>
+  
+    <body>
+        <nav class="navbar navbar-inverse navbar-expand-xl navbar-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand"><i class="fa fa-cube"></i>QuantifiedSelf</b></a> 
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarSupportedContent" class="collapse navbar-collapse justify-content-end">		
+            <ul class="nav navbar-nav ">
+              
+              <li class="active"><a class="nav-link" href="/signin"><i class="material-icons">&#xE8AC;</i> Logout</a></li>
+            </ul>
+          </div>
+          </div>
+        </nav>
+
+        <br>
+        <h1 style="margin-left: 15px;">Welcome {{name}} !</h1>
+        <p><a class="btn btn-secondary" style="background-color:rgba(0, 119, 255, 0.801); float:right; margin-right: 15px;" href="/{{username}}/tracker/add"><i class="fa fa-plus"></i> Add a Tracker</a></p>
+        <br>
+        <br>
+        <main>
+        <h2 style="margin-left: 15px;">My Trackers:</h2>
+        <br>
+        <div class="container marketing">
+          {% if trackers==[] %}
+              <p>No trackers have been added yet!</p>
+          {% else %}
+            {% set count=namespace(value=-1) %}
+            {% set tracker_id_list=[] %}
+            {% for log in latest_logs %}
+              {{ tracker_id_list.append(log["tracker_id"]) or " " }}
+            {% endfor %}
+            {% for tracker_row in trackers | batch(3, '&nbsp;') %}        
+            <div class="row">
+              {% for tracker in tracker_row %}
+              {% if tracker!='&nbsp;' %}
+              <div class="col-lg-4">
+                <a href='/{{username}}/tracker/{{tracker["tracker_id"]}}/view'><h2>{{tracker["tracker_name"]}}</h2></a>
+                {% if tracker["tracker_id"] in tracker_id_list %}
+                  {% set count.value=count.value+1 %}
+                  <p>Last Tracked Time: <span class="time" id='{{tracker["tracker_id"]}}' >{{latest_logs[count.value]["time_stamp"]}}</span></p>
+                  <p>Last Tracked Value: {{latest_logs[count.value]["value"]}}</p>
+                {% else %}
+                  <p>Last Tracked Time: None</p>
+                  <p>Last Tracked Value: None</p>
+                {% endif %}
+                <p><a class="btn btn-secondary" style="background-color:#4CAF50;" href='/{{username}}/tracker/{{tracker["tracker_id"]}}/log/add'><i class="fa fa-plus"></i> Add a log</a>
+                  <a class="btn btn-secondary" style="background-color:purple;" href='/{{username}}/tracker/{{tracker["tracker_id"]}}/log/{{tracker["log_id"]}}/view'><i class="fa fa-eye"></i> View log</a></p>
+                <p><a class="btn btn-secondary" style="background-color:rgba(255, 166, 0, 0.94);" href='/{{username}}/tracker/{{tracker["tracker_id"]}}/edit'><i class="fa fa-pencil"></i> Edit Tracker</a>
+                    <a class="btn btn-secondary" style="background-color:red;" onclick="return confirm('Are you sure you want to delete this tracker?');" href='/{{username}}/tracker/{{tracker["tracker_id"]}}/delete'><i class="fa fa-trash"></i> Delete Tracker</a></p>
+                </div>
+                {% endif %}
+                {% endfor %}
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+        </main>
+        
+        <script type = "text/JavaScript" src = " https://MomentJS.com/downloads/moment.js"></script>
+        <script src="/static/js/tracker_display.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <title>Register</title>
+        <!-- Bootstrap core CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
+    <body>
+      <section class="vh-100 bg-image" style="background-image: url('https://www.desktopbackground.org/download/o/2013/12/05/680424_light-blue-background-images-for-websites-hd_800x600_h.jpg');   background-repeat: no-repeat; background-size: cover;">
+          <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+              <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                  <div class="card" style="border-radius: 15px;">
+                    <div class="card-body p-5">
+                      <img class="mb-4 center" src="/static/logo.png" alt="" height="57" style="display: block; margin-left: auto;margin-right: auto;">
+                      <h3 class="text-uppercase text-center mb-5">Create an account</h3>
+                      <form action="/register" method="POST">
+
+                        <div class="form-outline mb-4">
+                          <input type="text" name= "name" id="form3Example1cg" class="form-control form-control-lg" placeholder="Name" required pattern="[a-z A-Z]+" oninvalid="setCustomValidity('Please enter alphabets only')"/>
+                        </div>
+        
+                        <div class="form-outline mb-4">
+                          <input type="text" name = "username" id="form3Example3cg" class="form-control form-control-lg" placeholder="Username" required/>
+                        </div>
+        
+                        <div class="form-outline mb-4">
+                          <input type="password" name = "password" id="form3Example4cg" class="form-control form-control-lg" placeholder="Password" required/>
+                        </div>
+        
+                        <div class="form-outline mb-4">
+                          <input type="password" name = "confirm_pass" id="form3Example4cdg" class="form-control form-control-lg" placeholder="Confirm Password" required/>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                          <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" style="background-color:#4CAF50;"><div style="color:white;">Register</div></button>
+                        </div>
+                        <br>
+                        {% if error %}
+                        <div style="color: red; text-align: center;">{{error}}</div>
+                        {% endif %}
+                        <p class="text-center text-muted mt-5 mb-0">Already have an account? <a href="/signin" class="fw-bold text-body"><u>Login here</u></a></p>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>  
+      </body>
+</html>
