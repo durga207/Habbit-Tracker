@@ -22,7 +22,6 @@ app,api = create_app()
 
 # Import all the controllers so they are loaded
 from application.controllers import *
-
 #Import all restful APIs
 from  application.api import TrackerAPI, LogAPI
 api.add_resource(TrackerAPI, "/api/tracker/<int:tracker_id>", "/api/<string:username>/tracker")
