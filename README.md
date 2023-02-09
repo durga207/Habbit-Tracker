@@ -10,3 +10,5 @@
 - To setup run `bash local_setup.sh`
 - To run the web application run `sh local_run.sh`
 - Open `http://127.0.0.1:5000`
+
+App demo: https://habbit-tracker-app.durga-supriya-h.repl.co/
